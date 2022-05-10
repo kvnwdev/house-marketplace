@@ -1,15 +1,26 @@
 import { useState, useEffect } from 'react';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 import { getDoc, doc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { db } from '../firebase.config';
 import Spinner from '../components/Spinner';
 import shareIcon from '../assets/svg/shareIcon.svg';
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import 'swiper/css/a11y';
+
 function Listing() {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { height, width } = useWindowDimensions();
   const [shareLinkCopied, setShareLinkCopied] = useState(false);
 
   const navigate = useNavigate();
@@ -31,10 +42,27 @@ function Listing() {
   }, [navigate, params.listingId]);
 
   if (loading) return <Spinner />;
-  console.log(listing);
+
   return (
     <main>
-      {/* Slider */}
+      <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        slidesPerView={1}
+        pagination={{ clickable: true }}
+      >
+        {listing.imgUrls.map((url, index) => (
+          <SwiperSlide key={index}>
+            <div
+              style={{
+                background: `url(${url}) center no-repeat`,
+                backgroundSize: 'cover',
+                height: `${width < 1200 ? '300px' : '600px'}`,
+              }}
+              className='swiperSlideDiv'
+            ></div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
       <div
         className='shareIconDiv'
@@ -117,4 +145,5 @@ function Listing() {
     </main>
   );
 }
+
 export default Listing;
