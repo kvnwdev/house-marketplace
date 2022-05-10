@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
+import Slider from '../components/Slider';
 import rentCategoryImage from '../assets/jpg/rentCategoryImage.jpg';
 import sellCategoryImage from '../assets/jpg/sellCategoryImage.jpg';
 
-function Explores() {
+function Explore() {
   return (
     <div className='explore'>
       <header>
@@ -10,7 +11,7 @@ function Explores() {
       </header>
 
       <main>
-        {/* Slider */}
+        <Slider />
 
         <p className='exploreCategoryHeading'>Categories</p>
         <div className='exploreCategories'>
@@ -35,4 +36,4 @@ function Explores() {
     </div>
   );
 }
-export default Explores;
+export default Explore;
