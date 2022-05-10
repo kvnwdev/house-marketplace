@@ -23,5 +23,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Dev files
 firebase.config.js
 house-marketplace.code-workspace
+/house-images
